@@ -20,7 +20,7 @@ const CategoriaVeiculoScreen = ({ navigation }: any) => {
   const fetchCategorias = async () => {
     try {
       setLoading(true);
-      const { data } = await api.get('/CategoriaVeiculo/'); // Adapte o endpoint da sua API
+      const { data } = await api.get('/CategoriaVeiculo/');
       setCategorias(data as CategoriaVeiculo[]);
     } catch (error) {
       Alert.alert('Erro', 'Não foi possível carregar as categorias de veículos. ' + error);

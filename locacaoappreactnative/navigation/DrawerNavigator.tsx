@@ -25,7 +25,7 @@ const DrawerNavigator = () => {
         drawerInactiveTintColor: '#000000',
         drawerLabelStyle: { marginLeft: 0, fontSize: 16 },
         drawerStyle: { backgroundColor: '#e8ede9', width: 250 },
-        headerStyle: { backgroundColor: '#185c27' },
+        headerStyle: { backgroundColor: '#3fd941' },
         headerTintColor: '#000000',
       }}
     >
