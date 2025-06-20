@@ -3,13 +3,13 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import React from 'react';
 import CustomDrawerContent from '../components/CustomDrawerContent';
 import HomeScreen from '../screens/HomeScreen';
-import CadeiraStackNavigator from '../navigation/CadeiraStackNavigator';
+import CategoriasStackNavigator from './CategoriasStackNavigator';
 
 
 
 export type DrawerParamList = {
   Home: undefined;
-  Cadeiras: undefined;
+  Categorias: undefined;
  
 };
 
@@ -21,28 +21,29 @@ const DrawerNavigator = () => {
       initialRouteName="Home"
       drawerContent={(props) => <CustomDrawerContent {...props} />}
       screenOptions={{
-        drawerActiveTintColor: '#4B7BE5',
+        drawerActiveTintColor: '#000000',
+        drawerInactiveTintColor: '#000000',
         drawerLabelStyle: { marginLeft: 0, fontSize: 16 },
-        drawerStyle: { backgroundColor: '#fff', width: 250 },
-        headerStyle: { backgroundColor: '#4B7BE5' },
-        headerTintColor: '#fff',
+        drawerStyle: { backgroundColor: '#e8ede9', width: 250 },
+        headerStyle: { backgroundColor: '#185c27' },
+        headerTintColor: '#000000',
       }}
     >
       <Drawer.Screen
         name="Home"
         component={HomeScreen}
         options={{
-          drawerIcon: ({ color, size }) => <Ionicons name="home-outline" size={size} color={color}  />,
+          drawerIcon: ({ color, size }) => <Ionicons name="home" size={size} color="#000000"  />,
           title: 'Início',
         }}
       />
 
        <Drawer.Screen
-        name="Cadeiras"
-        component={CadeiraStackNavigator} 
+        name="Categorias"
+        component={CategoriasStackNavigator} 
         options={{
-          title: 'Cadeiras',
-          drawerIcon: ({ color, size }) => <Ionicons name="easel-outline" size={size} color={color} />,
+          title: 'Categorias',
+          drawerIcon: ({ color, size }) => <Ionicons name="clipboard" size={size} color={color} />,
         }}
       />
 

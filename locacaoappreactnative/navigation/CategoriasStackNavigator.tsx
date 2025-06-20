@@ -4,16 +4,15 @@ import CategoriaScreen from '../screens/CategoriaVeiculo/CategoriaScreen';
 
 const Stack = createStackNavigator();
 
-const CadeiraStackNavigator = () => {
+const CategoriaStackNavigator = () => {
   return (
     <Stack.Navigator screenOptions={{ 
         headerShown: false, 
-        cardStyle: { backgroundColor: '#121212' }
     }}>
-      <Stack.Screen name="CadeiraList" component={CategoriaScreen} />
+      <Stack.Screen name="CategoriaList" component={CategoriaScreen} />
       
     </Stack.Navigator>
   );
 };
 
-export default CadeiraStackNavigator;
+export default CategoriaStackNavigator;

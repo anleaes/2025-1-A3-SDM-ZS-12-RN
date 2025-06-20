@@ -7,10 +7,10 @@ const CustomDrawerContent = (props: any) => {
     <DrawerContentScrollView {...props} contentContainerStyle={{ flex: 1 }}>
       <View style={styles.header}>
         <Image
-          source={require('../assets/images/react-logo.png')}
+          source={require('../assets/images/locadoralogo.png')}
           style={styles.avatar}
         />
-        <Text style={styles.name}>Olá, Usuário!</Text>
+        <Text style={styles.name}>Olá, Matheus!</Text>
       </View>
       <View style={{ flex: 1, paddingTop: 10 }}>
         <DrawerItemList {...props} />
@@ -22,7 +22,7 @@ const CustomDrawerContent = (props: any) => {
 const styles = StyleSheet.create({
   header: {
     padding: 20,
-    backgroundColor: '#4B7BE5',
+    backgroundColor: '#185c27',
     alignItems: 'center',
   },
   avatar: {
@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
     borderRadius: 40,
     marginBottom: 10,
     borderWidth: 2,
-    borderColor: '#fff',
+    borderColor: '#00000',
   },
   name: {
     color: '#fff',
