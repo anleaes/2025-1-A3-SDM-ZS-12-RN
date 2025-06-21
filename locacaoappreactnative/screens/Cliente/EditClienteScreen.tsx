@@ -106,10 +106,10 @@ const EditClienteScreen = ({ route, navigation }: any) => {
 };
 
 const styles = StyleSheet.create({
-  container: { flex: 1, padding: 16, backgroundColor: '#1c1c1e' },
-  label: { fontSize: 16, fontWeight: 'bold', marginTop: 12, marginBottom: 4, color: '#FFFFFF' },
-  input: { borderWidth: 1, borderColor: '#555', borderRadius: 8, padding: 12, fontSize: 16, color: '#FFFFFF', marginBottom: 12 },
-  buttonContainer: { marginTop: 20, marginBottom: 40 },
+  container: { flex: 1, padding: 16, backgroundColor: '#121212' },
+  label: { fontSize: 16, fontWeight: 'bold', marginTop: 0, marginBottom: 0, color: '#FFFFFF' },
+  input: { borderWidth: 1, borderColor: '#555', borderRadius: 8, padding: 12, fontSize: 16, marginLeft: 280, color: '#FFFFFF', marginBottom: 12 },
+  buttonContainer: { marginTop: 8, marginBottom: 40 , marginLeft: 280, },
 });
 
 export default EditClienteScreen;
