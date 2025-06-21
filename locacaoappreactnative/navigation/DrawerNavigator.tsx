@@ -5,6 +5,7 @@ import CustomDrawerContent from '../components/CustomDrawerContent';
 import HomeScreen from '../screens/HomeScreen';
 import CategoriasStackNavigator from './CategoriasStackNavigator';
 import ClienteStackNavigator from './ClienteStackNavigator';
+import SeguroStackNavigator from './SeguroStackNavigator';
 
 
 
@@ -12,6 +13,7 @@ export type DrawerParamList = {
   Home: undefined;
   Categorias: undefined;
   Clientes: undefined;
+  Seguro: undefined;
  
 };
 
@@ -55,6 +57,15 @@ const DrawerNavigator = () => {
         options={{
           title: 'Clientes',
           drawerIcon: ({ color, size }) => <Ionicons name="person" size={size} color={color} />,
+        }}
+      />
+
+      <Drawer.Screen
+        name="Seguro"
+        component={SeguroStackNavigator} 
+        options={{
+          title: 'Seguros',
+          drawerIcon: ({ color, size }) => <Ionicons name="shield-checkmark" size={size} color={color} />,
         }}
       />
 
