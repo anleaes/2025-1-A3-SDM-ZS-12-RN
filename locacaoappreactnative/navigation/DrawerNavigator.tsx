@@ -4,12 +4,14 @@ import React from 'react';
 import CustomDrawerContent from '../components/CustomDrawerContent';
 import HomeScreen from '../screens/HomeScreen';
 import CategoriasStackNavigator from './CategoriasStackNavigator';
+import ClienteStackNavigator from './ClienteStackNavigator';
 
 
 
 export type DrawerParamList = {
   Home: undefined;
   Categorias: undefined;
+  Clientes: undefined;
  
 };
 
@@ -44,6 +46,15 @@ const DrawerNavigator = () => {
         options={{
           title: 'Categorias',
           drawerIcon: ({ color, size }) => <Ionicons name="clipboard" size={size} color={color} />,
+        }}
+      />
+
+      <Drawer.Screen
+        name="Clientes"
+        component={ClienteStackNavigator} 
+        options={{
+          title: 'Clientes',
+          drawerIcon: ({ color, size }) => <Ionicons name="person" size={size} color={color} />,
         }}
       />
 
