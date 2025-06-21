@@ -1,22 +1,21 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
 import ClienteScreen from '../screens/Cliente/ClienteScreen';
-import EditCategoriaScreen from '../screens/CategoriaVeiculo/EditCategoriaScreen';
-import CreateCategoriaScreen from '../screens/CategoriaVeiculo/CreateCategoriaScreen';
+//import EditClienteScreen from '../screens/Cliente/EditClienteScreen';
+//import CreateClienteScreen from '../screens/Cliente/CreateClienteScreen';
 
 const Stack = createStackNavigator();
 
-const CategoriaStackNavigator = () => {
+const ClienteStackNavigator = () => {
   return (
     <Stack.Navigator screenOptions={{ 
         headerShown: false, 
     }}>
-      <Stack.Screen name="CategoriaList" component={CategoriaScreen} />
-      <Stack.Screen name="EditCategoriaVeiculo" component={EditCategoriaScreen} />
-      <Stack.Screen name="CreateCategoriaVeiculo" component={CreateCategoriaScreen} />
+      <Stack.Screen name="ClienteList" component={ClienteScreen} />
+     
       
     </Stack.Navigator>
   );
 };
 
-export default CategoriaStackNavigator;
+export default ClienteStackNavigator;
