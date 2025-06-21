@@ -59,7 +59,7 @@ const EditClienteScreen = ({ route, navigation }: any) => {
     };
 
     try {
-      await api.put(`/clientes/${cliente.id}/`, clienteData);
+      await api.put(`/cliente/${cliente.id}/`, clienteData);
       navigation.goBack();
     } catch (error) {
       Alert.alert('Erro', 'Não foi possível atualizar o cliente. ' + error);
