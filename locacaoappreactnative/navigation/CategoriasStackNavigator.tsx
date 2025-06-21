@@ -2,6 +2,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
 import CategoriaScreen from '../screens/CategoriaVeiculo/CategoriaScreen';
 import EditCategoriaScreen from '../screens/CategoriaVeiculo/EditCategoriaScreen';
+import CreateCategoriaScreen from '../screens/CategoriaVeiculo/CreateCategoriaScreen';
 
 const Stack = createStackNavigator();
 
@@ -12,6 +13,7 @@ const CategoriaStackNavigator = () => {
     }}>
       <Stack.Screen name="CategoriaList" component={CategoriaScreen} />
       <Stack.Screen name="EditCategoriaVeiculo" component={EditCategoriaScreen} />
+      <Stack.Screen name="CreateCategoriaVeiculo" component={CreateCategoriaScreen} />
       
     </Stack.Navigator>
   );
