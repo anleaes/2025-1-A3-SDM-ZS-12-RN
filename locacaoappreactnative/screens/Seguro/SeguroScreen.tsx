@@ -15,15 +15,15 @@ export type Seguro = {
 };
 
 const SeguroScreen = ({ navigation }: any) => {
-  const [seguros, setSeguros] = useState<Seguro[]>([]);
+  const [seguro, setSeguro] = useState<Seguro[]>([]);
   const [loading, setLoading] = useState(true);
 
   // Função para buscar os seguros da API
-  const fetchSeguros = async () => {
+  const fetchSeguro = async () => {
     try {
       setLoading(true);
-      const { data } = await api.get('/seguros/');
-      setSeguros(data as Seguro[]);
+      const { data } = await api.get('/seguro/');
+      setSeguro(data as Seguro[]);
     } catch (error) {
       Alert.alert('Erro', 'Não foi possível carregar os seguros. ' + error);
     } finally {
@@ -32,7 +32,7 @@ const SeguroScreen = ({ navigation }: any) => {
   };
 
   // Carrega os seguros sempre que a tela estiver em foco
-  useFocusEffect(useCallback(() => { fetchSeguros(); }, []));
+  useFocusEffect(useCallback(() => { fetchSeguro(); }, []));
 
   // Função para lidar com a exclusão de um seguro
   const handleDelete = (id: number) => {
@@ -43,7 +43,7 @@ const SeguroScreen = ({ navigation }: any) => {
         onPress: async () => {
           try {
             await api.delete(`/seguros/${id}/`);
-            setSeguros(prev => prev.filter(seg => seg.id !== id));
+            setSeguro(prev => prev.filter(seg => seg.id !== id));
           } catch (error) {
             Alert.alert('Erro', 'Não foi possível excluir o seguro. ' + error);
           }
@@ -57,10 +57,11 @@ const SeguroScreen = ({ navigation }: any) => {
   const renderItem = ({ item }: { item: Seguro }) => (
     <View style={styles.card}>
       <View style={styles.cardContent}>
-        <Text style={styles.name}>{item.nome}</Text>
-        <Text style={styles.details}>{item.descricao}</Text>
-        <Text style={styles.details}>Cobertura: {item.cobertura}</Text>
-        <Text style={styles.details}>Valor: R$ {item.valor.toFixed(2)}</Text>
+        <Text style={styles.name}>{item.tipo}</Text>
+        <Text style={styles.details}>{item.cobertura}</Text>
+        <Text style={styles.details}>Valor: R$ {item.valor_diario.toFixed(2)}</Text>
+        <Text style={styles.details}>Cobertura: {item.franquia}</Text>
+        <Text style={styles.details}>Seguradora: {item.seguradora}</Text>
       </View>
       <View style={styles.cardActions}>
         <TouchableOpacity onPress={() => navigation.navigate('EditSeguro', { seguro: item })}>
@@ -79,7 +80,7 @@ const SeguroScreen = ({ navigation }: any) => {
         <ActivityIndicator size="large" color="#3498db" style={{ flex: 1 }} />
       ) : (
         <FlatList
-          data={seguros}
+          data={seguro}
           keyExtractor={(item) => item.id.toString()}
           renderItem={renderItem}
           contentContainerStyle={{ paddingBottom: 80 }}
