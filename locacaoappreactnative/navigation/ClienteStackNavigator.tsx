@@ -2,7 +2,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
 import ClienteScreen from '../screens/Cliente/ClienteScreen';
 import EditClienteScreen from '../screens/Cliente/EditClienteScreen';
-//import CreateClienteScreen from '../screens/Cliente/CreateClienteScreen';
+import CreateClienteScreen from '../screens/Cliente/CreateClienteScreen';
 
 const Stack = createStackNavigator();
 
@@ -13,6 +13,7 @@ const ClienteStackNavigator = () => {
     }}>
       <Stack.Screen name="ClienteList" component={ClienteScreen} />
       <Stack.Screen name="EditCliente" component={EditClienteScreen} />
+      <Stack.Screen name="CreateCliente" component={CreateClienteScreen} />
       
      
       
