@@ -61,7 +61,7 @@ const CategoriaVeiculoScreen = ({ navigation }: any) => {
       </View>
       <View style={styles.cardActions}>
         <TouchableOpacity onPress={() => navigation.navigate('EditCategoriaVeiculo', { categoria: item })}>
-          <Ionicons name="pencil" size={24} color="#3498db" />
+          <Ionicons name="create" size={24} color='#3fd941' />
         </TouchableOpacity>
         <TouchableOpacity onPress={() => handleDelete(item.id)}>
           <Ionicons name="trash" size={24} color="#e74c3c" />
