@@ -39,22 +39,22 @@ const ClienteScreen = ({ navigation }: any) => {
 
   // Função para lidar com a exclusão de um cliente
   const handleDelete = (id: number) => {
-    Alert.alert('Confirmar Exclusão', 'Deseja realmente excluir este cliente?', [
-      { text: 'Cancelar' },
-      {
-        text: 'Excluir',
-        onPress: async () => {
-          try {
-            await api.delete(`/clientes/${id}/`);
-            setCliente(prev => prev.filter(cli => cli.id !== id));
-          } catch (error) {
-            Alert.alert('Erro', 'Não foi possível excluir o cliente. ' + error);
-          }
-        },
-        style: 'destructive'
-      }
-    ]);
-  };
+  Alert.alert('Confirmar Exclusão', 'Deseja realmente excluir este cliente?', [
+    { text: 'Cancelar' },
+    {
+      text: 'Excluir',
+      onPress: async () => {
+        try {
+          await api.delete(`/cliente/${id}/`); 
+          setCliente(prev => prev.filter(cli => cli.id !== id));
+        } catch (error) {
+          Alert.alert('Erro', 'Não foi possível excluir o cliente. ' + error);
+        }
+      },
+      style: 'destructive'
+    }
+  ]);
+};
 
   // Renderização de cada item da lista
   const renderItem = ({ item }: { item: Cliente }) => (

@@ -1,8 +1,8 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
 import SeguroScreen from '../screens/Seguro/SeguroScreen';
-//import EditClienteScreen from '../screens/Cliente/EditClienteScreen';
-//import CreateClienteScreen from '../screens/Cliente/CreateClienteScreen';
+import EditSeguroScreen from '../screens/Seguro/EditSeguroScreen';
+import CreateSeguroScreen from '../screens/Seguro/CreateSeguroScreen';
 
 const Stack = createStackNavigator();
 
@@ -12,9 +12,8 @@ const SeguroStackNavigator = () => {
         headerShown: false, 
     }}>
       <Stack.Screen name="SeguroList" component={SeguroScreen} />
-      
-      
-     
+      <Stack.Screen name="CreateSeguro" component={CreateSeguroScreen} />
+      <Stack.Screen name="EditSeguro" component={EditSeguroScreen} />
       
     </Stack.Navigator>
   );
