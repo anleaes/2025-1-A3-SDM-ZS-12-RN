@@ -7,6 +7,7 @@ import CategoriasStackNavigator from './CategoriasStackNavigator';
 import ClienteStackNavigator from './ClienteStackNavigator';
 import SeguroStackNavigator from './SeguroStackNavigator';
 import AcessorioStackNavigator from './AcessorioStackNavigator';
+import FuncionarioStackNavigator from './FuncionarioStackNavigator';
 
 
 
@@ -16,6 +17,7 @@ export type DrawerParamList = {
   Clientes: undefined;
   Seguro: undefined;
   Acessórios: undefined;
+  Funcionario: undefined;
  
 };
 
@@ -77,6 +79,15 @@ const DrawerNavigator = () => {
         options={{
           title: 'Acessórios',
           drawerIcon: ({ color, size }) => <Ionicons name="build" size={size} color={color} />,
+        }}
+      />
+
+      <Drawer.Screen
+        name="Funcionario"
+        component={FuncionarioStackNavigator} 
+        options={{
+          title: 'Funcionário',
+          drawerIcon: ({ color, size }) => <Ionicons name="people" size={size} color={color} />,
         }}
       />
 

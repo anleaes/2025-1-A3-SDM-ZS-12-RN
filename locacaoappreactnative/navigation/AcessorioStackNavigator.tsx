@@ -1,8 +1,8 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
 import AcessorioScreen from '../screens/Acessorios/AcessorioScreen';
-//import EditSeguroScreen from '../screens/Seguro/EditSeguroScreen';
-//import CreateSeguroScreen from '../screens/Seguro/CreateSeguroScreen';
+import EditAcessorioScreen from '../screens/Acessorios/EditAcessorioScreen';
+import CreateAcessorioScreen from '../screens/Acessorios/CreateAcessorioScreen';
 
 const Stack = createStackNavigator();
 
@@ -12,6 +12,10 @@ const AcessorioStackNavigator = () => {
         headerShown: false, 
     }}>
       <Stack.Screen name="AcessorioList" component={AcessorioScreen} />
+      <Stack.Screen name="EditAcessorio" component={EditAcessorioScreen} />
+      <Stack.Screen name="CreateAcessorio" component={CreateAcessorioScreen} />
+
+        
 
       
     </Stack.Navigator>
