@@ -1,6 +1,6 @@
 import { Ionicons } from '@expo/vector-icons';
 import { useFocusEffect } from '@react-navigation/native';
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState, ReactNode } from 'react';
 import { ActivityIndicator, Alert, FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import api from '../../services/api';
 
@@ -13,7 +13,9 @@ export type Veiculo = {
   cor: string;
   valor_diaria: number;
   categoria: { id: number; nome: string };
+  nome_categoria: ReactNode;
   acessorios: { id: number; nome: string }[];
+  nomes_acessorios: any;
 };
 
 const VeiculoScreen = ({ navigation }: any) => {
@@ -64,12 +66,12 @@ const VeiculoScreen = ({ navigation }: any) => {
         <Text style={styles.details}>Placa: {item.placa}</Text>
         <Text style={styles.details}>Marca: {item.marca}</Text>
         <Text style={styles.details}>Cor: {item.cor}</Text>
-        <Text style={styles.details}>Categoria: {item.categoria?.nome}</Text>
+        <Text style={styles.details}>Categoria: {item.nome_categoria}</Text>
         <Text style={styles.details}>Valor diária: R$ {Number(item.valor_diaria).toFixed(2)}</Text>
         <Text style={styles.details}>
-          Acessórios: {item.acessorios && item.acessorios.length > 0
-            ? item.acessorios.map(a => a.nome).join(', ')
-            : 'Nenhum'}
+             Acessórios: {item.nomes_acessorios && item.nomes_acessorios.length > 0
+             ? item.nomes_acessorios.join(', ')
+              : 'Nenhum'}
         </Text>
       </View>
       <View style={styles.cardActions}>

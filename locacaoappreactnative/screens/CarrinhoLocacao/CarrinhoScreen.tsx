@@ -11,7 +11,9 @@ type CarrinhoLocacao = {
   id: number;
   locacao?: Locacao;
   veiculo?: Veiculo;
+  marca_veiculo: string;
   seguro?: Seguro;
+  seguro_nome: string;
   quantidade: number;
   preco_unitario: number;
 };
@@ -56,14 +58,10 @@ const CarrinhoLocacaoScreen = ({ navigation }: any) => {
     <View style={styles.card}>
       <View style={styles.cardContent}>
         <Text style={styles.name}>
-          {item.veiculo ? `${item.quantidade}x ${item.veiculo.modelo}` : 'Item'}
+             {item.quantidade}x {item.veiculo?.modelo ?? 'Veículos'}
         </Text>
-        {item.veiculo && (
-          <Text style={styles.details}>Marca: {item.veiculo.marca}</Text>
-        )}
-        {item.seguro && (
-          <Text style={styles.details}>Seguro: {item.seguro.tipo}</Text>
-        )}
+       <Text style={styles.details}>Marca: {item.marca_veiculo ?? '--'}</Text>
+        <Text style={styles.details}>Seguro: {item.seguro_nome ?? '--'}</Text>
         <Text style={styles.details}>Preço unitário: R$ {Number(item.preco_unitario).toFixed(2)}</Text>
       </View>
       <View style={styles.cardActions}>
@@ -92,7 +90,7 @@ const CarrinhoLocacaoScreen = ({ navigation }: any) => {
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#121212' },
-  card: { backgroundColor: '#1e1e1e', marginVertical: 8, marginHorizontal: 16, borderRadius: 8, padding: 16, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', elevation: 2, borderWidth: 1, borderColor: '#333', maxWidth: '100%' },
+  card: { backgroundColor: '#1e1e1e', marginVertical: 8, marginLeft: 280, marginHorizontal: 16, borderRadius: 8, padding: 16, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', elevation: 2, borderWidth: 1, borderColor: '#333', maxWidth: '100%' },
   cardContent: { flex: 1 },
   name: { fontSize: 18, fontWeight: 'bold', color: '#fff' },
   details: { fontSize: 14, color: '#aaa', marginTop: 4 },

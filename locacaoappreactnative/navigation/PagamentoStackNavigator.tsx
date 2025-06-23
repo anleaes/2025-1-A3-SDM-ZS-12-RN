@@ -11,6 +11,7 @@ const PagamentoStackNavigator = () => {
         headerShown: false, 
     }}>
       <Stack.Screen name="PagamentoList" component={PagamentoScreen} />
+      
     </Stack.Navigator>
   );
 };

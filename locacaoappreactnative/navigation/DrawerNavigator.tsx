@@ -10,6 +10,7 @@ import AcessorioStackNavigator from './AcessorioStackNavigator';
 import FuncionarioStackNavigator from './FuncionarioStackNavigator';
 import VeiculoStackNavigator from './VeiculoStackNavigator';
 import CarrinhoStackNavigator from './CarrinhoStackNavigator';
+import LocacaoStackNavigator from './LocacaoStackNavigator';
 import PagamentoStackNavigator from './PagamentoStackNavigator';
 
 
@@ -24,6 +25,7 @@ export type DrawerParamList = {
   Veiculo: undefined;
   Carrinho: undefined;
   Pagamento: undefined;
+  Locacao: undefined;
  
 };
 
@@ -107,6 +109,15 @@ const DrawerNavigator = () => {
       />
 
       <Drawer.Screen
+        name="Locacao"
+        component={LocacaoStackNavigator} 
+        options={{
+          title: 'Locação',
+          drawerIcon: ({ color, size }) => <Ionicons name="bag" size={size} color={color} />,
+        }}
+      />
+
+      <Drawer.Screen
         name="Carrinho"
         component={CarrinhoStackNavigator} 
         options={{
@@ -120,7 +131,7 @@ const DrawerNavigator = () => {
         component={PagamentoStackNavigator} 
         options={{
           title: 'Pagamento',
-          drawerIcon: ({ color, size }) => <Ionicons name="cart" size={size} color={color} />,
+          drawerIcon: ({ color, size }) => <Ionicons name="card" size={size} color={color} />,
         }}
       />
 
