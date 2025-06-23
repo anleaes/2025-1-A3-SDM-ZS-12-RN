@@ -5,7 +5,9 @@ import api from '../../services/api';
 
 type Veiculo = { id: number; modelo: string; marca: string };
 type Seguro = { id: number; tipo: string };
-type Locacao = { id: number };
+type Locacao = {
+  nome_cliente: any; id: number 
+};
 
 const EditCarrinhoScreen = ({ route, navigation }: any) => {
   const { carrinho } = route.params;
@@ -124,7 +126,7 @@ const EditCarrinhoScreen = ({ route, navigation }: any) => {
         </Picker>
       </View>
 
-      <Text style={styles.label}>Locação (opcional)</Text>
+      <Text style={styles.label}>Locação</Text>
       <View style={styles.pickerContainer}>
         <Picker
           selectedValue={locacao}
@@ -134,7 +136,7 @@ const EditCarrinhoScreen = ({ route, navigation }: any) => {
         >
           <Picker.Item label="Sem locação" value={null} />
           {locacoes.map(l => (
-            <Picker.Item key={l.id} label={`Locação #${l.id}`} value={l.id} />
+            <Picker.Item key={l.id} label={`Locação ${l.nome_cliente}`} value={l.id} />
           ))}
         </Picker>
       </View>

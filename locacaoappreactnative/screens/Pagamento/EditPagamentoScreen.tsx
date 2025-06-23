@@ -3,7 +3,9 @@ import { ActivityIndicator, Alert, Button, ScrollView, StyleSheet, Text, TextInp
 import { Picker } from '@react-native-picker/picker';
 import api from '../../services/api';
 
-type CarrinhoLocacao = { id: number };
+type CarrinhoLocacao = {
+    nome_cliente: any; id: number 
+};
 
 const EditPagamentoScreen = ({ route, navigation }: any) => {
   const { pagamento } = route.params;
@@ -77,7 +79,7 @@ const EditPagamentoScreen = ({ route, navigation }: any) => {
         >
           <Picker.Item label="Selecione um carrinho" value={null} />
           {carrinhos.map(c => (
-            <Picker.Item key={c.id} label={`Carrinho #${c.id}`} value={c.id} />
+            <Picker.Item key={c.id} label={`Carrinho #${c.nome_cliente}`} value={c.id} />
           ))}
         </Picker>
       </View>
