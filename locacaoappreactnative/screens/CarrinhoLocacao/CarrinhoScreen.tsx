@@ -65,6 +65,9 @@ const CarrinhoLocacaoScreen = ({ navigation }: any) => {
         <Text style={styles.details}>Preço unitário: R$ {Number(item.preco_unitario).toFixed(2)}</Text>
       </View>
       <View style={styles.cardActions}>
+        <TouchableOpacity onPress={() => navigation.navigate('EditCarrinho', { carrinho: item })}>
+                  <Ionicons name="create" size={24} color='#3fd941' />
+        </TouchableOpacity>
         <TouchableOpacity onPress={() => handleDelete(item.id)}>
           <Ionicons name="trash" size={24} color="#e74c3c" />
         </TouchableOpacity>
@@ -84,6 +87,9 @@ const CarrinhoLocacaoScreen = ({ navigation }: any) => {
           contentContainerStyle={{ paddingBottom: 80 }}
         />
       )}
+      <TouchableOpacity style={styles.fab} onPress={() => navigation.navigate('CreateCarrinho')}>
+              <Ionicons name="add" size={28} color="#fff" />
+            </TouchableOpacity>
     </View>
   );
 };
@@ -92,6 +98,7 @@ const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#121212' },
   card: { backgroundColor: '#1e1e1e', marginVertical: 8, marginLeft: 280, marginHorizontal: 16, borderRadius: 8, padding: 16, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', elevation: 2, borderWidth: 1, borderColor: '#333', maxWidth: '100%' },
   cardContent: { flex: 1 },
+  fab: { position: 'absolute', right: 20, bottom: 20, backgroundColor: '#3fd941', width: 56, height: 56, borderRadius: 28, justifyContent: 'center', alignItems: 'center', elevation: 4 },
   name: { fontSize: 18, fontWeight: 'bold', color: '#fff' },
   details: { fontSize: 14, color: '#aaa', marginTop: 4 },
   cardActions: { flexDirection: 'row', gap: 16 }
