@@ -69,7 +69,7 @@ const LocacaoScreen = ({ navigation }: any) => {
       </View>
       <View style={styles.cardActions}>
         <TouchableOpacity onPress={() => navigation.navigate('EditLocacao', { locacao: item })}>
-          <Ionicons name="create" size={24} color='#3fd941' />
+          <Ionicons name="create" size={24} color='#008080' />
         </TouchableOpacity>
         <TouchableOpacity onPress={() => handleDelete(item.id)}>
           <Ionicons name="trash" size={24} color="#e74c3c" />
@@ -109,7 +109,7 @@ const LocacaoScreen = ({ navigation }: any) => {
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#121212' },
-  fab: { position: 'absolute', right: 20, bottom: 20, backgroundColor: '#3fd941', width: 56, height: 56, borderRadius: 28, justifyContent: 'center', alignItems: 'center', elevation: 4 },
+  fab: { position: 'absolute', right: 20, bottom: 20, backgroundColor: '#008080', width: 56, height: 56, borderRadius: 28, justifyContent: 'center', alignItems: 'center', elevation: 4 },
   card: { backgroundColor: '#1e1e1e', marginVertical: 8, marginHorizontal: 16, marginLeft: 280, borderRadius: 8, padding: 16, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', elevation: 2, borderWidth: 1, borderColor: '#333', maxWidth: '100%' },
   cardContent: { flex: 1 },
   name: { fontSize: 18, fontWeight: 'bold', color: '#fff' },

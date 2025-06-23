@@ -20,7 +20,7 @@ const HomeScreen = (_props: Props) => (
 const styles = StyleSheet.create({
   container: { flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#121212', padding: 24 },
   logo: { width: 250, height: 120, marginBottom: 24 },
-  title: { fontSize: 32, fontWeight: 'bold', color: '#3fd941', marginBottom: 8 },
+  title: { fontSize: 32, fontWeight: 'bold', color: '#008080', marginBottom: 8 },
   subtitle: { fontSize: 16, color: '#ccc', marginBottom: 32, textAlign: 'center' },
 });
 
