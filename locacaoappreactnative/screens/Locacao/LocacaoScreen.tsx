@@ -58,9 +58,9 @@ const LocacaoScreen = ({ navigation }: any) => {
   const renderItem = ({ item }: { item: Locacao }) => (
     <View style={styles.card}>
       <View style={styles.cardContent}>
-        <Text style={styles.name}>Locação #{item.id}</Text>
+        <Text style={styles.name}>Locação {item.nome_cliente}</Text>
         <Text style={styles.details}>Cliente: {item.nome_cliente}</Text>
-        <Text style={styles.details}>Veículo: {item.nome_veiculo} ({item.placa_veiculo})</Text>
+        <Text style={styles.details}>Veículo: {item.nome_veiculo}</Text>
         <Text style={styles.details}>Funcionário: {item.nome_funcionario}</Text>
         <Text style={styles.details}>Retirada: {new Date(item.data_hora_retirada).toLocaleString()}</Text>
         <Text style={styles.details}>Devolução prevista: {new Date(item.data_hora_prevista_devolucao).toLocaleString()}</Text>

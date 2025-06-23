@@ -1,88 +1,113 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Alert, ActivityIndicator } from 'react-native';
+import React, { ReactNode, useCallback, useState } from 'react';
+import { ActivityIndicator, Alert, FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
+import { useFocusEffect } from '@react-navigation/native';
 import api from '../../services/api';
 
-const FORMAS_PAGAMENTO = ['Pix', 'Crédito', 'Débito', 'Dinheiro'];
-
-type PagamentoProps = {
-  route: {
-    params: {
-      carrinhoId: number;
-      valor: number;
-    };
-  };
-  navigation: any;
+type Pagamento = {
+  id: number;
+  carrinho_locacao?: number;
+  nome_cliente: ReactNode;
+  forma_pagamento: string;
+  valor: number;
+  data_hora_pagamento: string;
+  status: 'Pago' | 'Pendente' | 'Cancelado';
 };
 
-const PagamentoScreen: React.FC<PagamentoProps> = ({ route, navigation }) => {
-  const { carrinhoId, valor } = route.params;
-  const [formaPagamento, setFormaPagamento] = useState<string>('Pix');
-  const [loading, setLoading] = useState(false);
+const PagamentoScreen = ({ navigation }: any) => {
+  const [pagamentos, setPagamentos] = useState<Pagamento[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  const handlePagamento = async () => {
-    setLoading(true);
+  const fetchPagamentos = async () => {
     try {
-      await api.post('/pagamento/', {
-        carrinho_locacao: carrinhoId,
-        forma_pagamento: formaPagamento,
-        valor: valor,
-        status: 'Pago'
-      });
-      Alert.alert('Sucesso', 'Pagamento realizado com sucesso!');
-      navigation.goBack();
+      setLoading(true);
+      const { data } = await api.get('/pagamento/');
+      setPagamentos(data as Pagamento[]);
     } catch (error) {
-      Alert.alert('Erro', 'Não foi possível realizar o pagamento.');
+      Alert.alert('Erro', 'Não foi possível carregar os pagamentos. ' + error);
     } finally {
       setLoading(false);
     }
   };
 
+  useFocusEffect(useCallback(() => { fetchPagamentos(); }, []));
+
+  const handleDelete = (id: number) => {
+    Alert.alert('Confirmar Exclusão', 'Deseja realmente excluir este pagamento?', [
+      { text: 'Cancelar' },
+      {
+        text: 'Excluir',
+        onPress: async () => {
+          try {
+            await api.delete(`/pagamento/${id}/`);
+            setPagamentos(prev => prev.filter(p => p.id !== id));
+          } catch (error) {
+            Alert.alert('Erro', 'Não foi possível excluir o pagamento. ' + error);
+          }
+        },
+        style: 'destructive'
+      }
+    ]);
+  };
+
+  const renderItem = ({ item }: { item: Pagamento }) => (
+    <View style={styles.card}>
+      <View style={styles.cardContent}>
+        <Text style={styles.name}>Pagamento #{item.id}</Text>
+        <Text style={styles.details}>Carrinho: {item.carrinho_locacao ?? '--'}</Text>
+        <Text style={styles.details}>Cliente: {item.nome_cliente}</Text>
+        <Text style={styles.details}>Forma: {item.forma_pagamento}</Text>
+        <Text style={styles.details}>Valor: R$ {Number(item.valor).toFixed(2)}</Text>
+        <Text style={styles.details}>Data: {new Date(item.data_hora_pagamento).toLocaleString()}</Text>
+        <Text style={[styles.details, { color: statusColor(item.status) }]}>Status: {item.status}</Text>
+      </View>
+      <View style={styles.cardActions}>
+        <TouchableOpacity onPress={() => navigation.navigate('EditPagamento', { pagamento: item })}>
+          <Ionicons name="create" size={24} color='#3fd941' />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => handleDelete(item.id)}>
+          <Ionicons name="trash" size={24} color="#e74c3c" />
+        </TouchableOpacity>
+      </View>
+    </View>
+  );
+
+  function statusColor(status: string) {
+    switch (status) {
+      case 'Pago': return '#3fd941';
+      case 'Pendente': return '#f1c40f';
+      case 'Cancelado': return '#e74c3c';
+      default: return '#aaa';
+    }
+  }
+
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Pagamento</Text>
-      <Text style={styles.label}>Valor total:</Text>
-      <Text style={styles.valor}>R$ {valor?.toFixed(2)}</Text>
-      <Text style={styles.label}>Forma de pagamento:</Text>
-      <View style={styles.formasContainer}>
-        {FORMAS_PAGAMENTO.map((forma) => (
-          <TouchableOpacity
-            key={forma}
-            style={[
-              styles.formaBtn,
-              formaPagamento === forma && styles.formaBtnSelected
-            ]}
-            onPress={() => setFormaPagamento(forma)}
-          >
-            <Text style={styles.formaBtnText}>{forma}</Text>
-          </TouchableOpacity>
-        ))}
-      </View>
-      <TouchableOpacity
-        style={styles.pagarBtn}
-        onPress={handlePagamento}
-        disabled={loading}
-      >
-        {loading ? (
-          <ActivityIndicator color="#fff" />
-        ) : (
-          <Text style={styles.pagarBtnText}>Pagar</Text>
-        )}
+      {loading ? (
+        <ActivityIndicator size="large" color="#3498db" style={{ flex: 1 }} />
+      ) : (
+        <FlatList
+          data={pagamentos}
+          keyExtractor={(item) => item.id.toString()}
+          renderItem={renderItem}
+          contentContainerStyle={{ paddingBottom: 80 }}
+        />
+      )}
+      <TouchableOpacity style={styles.fab} onPress={() => navigation.navigate('CreatePagamento')}>
+        <Ionicons name="add" size={28} color="#fff" />
       </TouchableOpacity>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#121212', padding: 24 },
-  title: { fontSize: 28, fontWeight: 'bold', color: '#fff', marginBottom: 24 },
-  label: { fontSize: 16, color: '#aaa', marginTop: 16 },
-  valor: { fontSize: 24, color: '#fff', marginBottom: 16 },
-  formasContainer: { flexDirection: 'row', flexWrap: 'wrap', marginVertical: 16 },
-  formaBtn: { backgroundColor: '#222', padding: 12, borderRadius: 8, marginRight: 12, marginBottom: 12 },
-  formaBtnSelected: { backgroundColor: '#3498db' },
-  formaBtnText: { color: '#fff', fontSize: 16 },
-  pagarBtn: { backgroundColor: '#27ae60', padding: 16, borderRadius: 8, alignItems: 'center', marginTop: 32 },
-  pagarBtnText: { color: '#fff', fontSize: 18, fontWeight: 'bold' }
+  container: { flex: 1, backgroundColor: '#121212' },
+  fab: { position: 'absolute', right: 20, bottom: 20, backgroundColor: '#3fd941', width: 56, height: 56, borderRadius: 28, justifyContent: 'center', alignItems: 'center', elevation: 4 },
+  card: { backgroundColor: '#1e1e1e', marginVertical: 8, marginHorizontal: 16, marginLeft: 280, borderRadius: 8, padding: 16, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', elevation: 2, borderWidth: 1, borderColor: '#333', maxWidth: '100%' },
+  cardContent: { flex: 1 },
+  name: { fontSize: 18, fontWeight: 'bold', color: '#fff' },
+  details: { fontSize: 14, color: '#aaa', marginTop: 4 },
+  cardActions: { flexDirection: 'row', gap: 16 }
 });
 
 export default PagamentoScreen;

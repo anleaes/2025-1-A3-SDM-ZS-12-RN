@@ -10,6 +10,7 @@ type Locacao = { id: number };
 type CarrinhoLocacao = {
   id: number;
   locacao?: Locacao;
+  nome_cliente: string;
   veiculo?: Veiculo;
   marca_veiculo: string;
   seguro?: Seguro;
@@ -60,7 +61,8 @@ const CarrinhoLocacaoScreen = ({ navigation }: any) => {
         <Text style={styles.name}>
              {item.quantidade}x {item.veiculo?.modelo ?? 'Veículos'}
         </Text>
-       <Text style={styles.details}>Marca: {item.marca_veiculo ?? '--'}</Text>
+        <Text style={styles.details}>Locação: {item.nome_cliente ?? '--'}</Text>
+        <Text style={styles.details}>Marca: {item.marca_veiculo ?? '--'}</Text>
         <Text style={styles.details}>Seguro: {item.seguro_nome ?? '--'}</Text>
         <Text style={styles.details}>Preço unitário: R$ {Number(item.preco_unitario).toFixed(2)}</Text>
       </View>
