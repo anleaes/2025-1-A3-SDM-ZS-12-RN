@@ -9,6 +9,7 @@ import SeguroStackNavigator from './SeguroStackNavigator';
 import AcessorioStackNavigator from './AcessorioStackNavigator';
 import FuncionarioStackNavigator from './FuncionarioStackNavigator';
 import VeiculoStackNavigator from './VeiculoStackNavigator';
+import CarrinhoStackNavigator from './CarrinhoStackNavigator';
 
 
 
@@ -20,6 +21,7 @@ export type DrawerParamList = {
   Acessórios: undefined;
   Funcionario: undefined;
   Veiculo: undefined;
+  Carrinho: undefined;
  
 };
 
@@ -99,6 +101,15 @@ const DrawerNavigator = () => {
         options={{
           title: 'Veiculo',
           drawerIcon: ({ color, size }) => <Ionicons name="car-sport" size={size} color={color} />,
+        }}
+      />
+
+      <Drawer.Screen
+        name="Carrinho"
+        component={CarrinhoStackNavigator} 
+        options={{
+          title: 'Carrinho',
+          drawerIcon: ({ color, size }) => <Ionicons name="cart" size={size} color={color} />,
         }}
       />
 
