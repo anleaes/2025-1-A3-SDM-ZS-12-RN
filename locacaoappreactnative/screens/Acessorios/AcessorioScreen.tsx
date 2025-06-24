@@ -35,23 +35,16 @@ const AcessorioScreen = ({ navigation }: any) => {
 
   useFocusEffect(useCallback(() => { fetchAcessorios(); }, []));
 
-  const handleDelete = (id: number) => {
-    Alert.alert('Confirmar Exclusão', 'Deseja realmente excluir este acessório?', [
-      { text: 'Cancelar' },
-      {
-        text: 'Excluir',
-        onPress: async () => {
-          try {
-            await api.delete(`/acessorio/${id}/`);
-            setAcessorios(prev => prev.filter(acc => acc.id !== id));
-          } catch (error) {
-            Alert.alert('Erro', 'Não foi possível excluir o acessório. ' + error);
-          }
-        },
-        style: 'destructive'
-      }
-    ]);
-  };
+  const handleDelete = async (id: number) => {
+  try {
+    console.log('Enviando DELETE para:', `/acessorio/${id}/`);
+    await api.delete(`/acessorio/${id}/`);
+    setAcessorios(prev => prev.filter(acc => acc.id !== id));
+    console.log('Acessório removido com sucesso.');
+  } catch (error: any) {
+    console.log('Erro ao deletar acessório:', error.response?.data || error.message);
+  }
+};
 
   const renderItem = ({ item }: { item: Acessorio }) => (
     <View style={styles.card}>

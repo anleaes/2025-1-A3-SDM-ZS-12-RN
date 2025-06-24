@@ -31,23 +31,16 @@ const FuncionarioScreen = ({ navigation }: any) => {
 
   useFocusEffect(useCallback(() => { fetchFuncionarios(); }, []));
 
-  const handleDelete = (id: number) => {
-    Alert.alert('Confirmar Exclusão', 'Deseja realmente excluir este funcionário?', [
-      { text: 'Cancelar' },
-      {
-        text: 'Excluir',
-        onPress: async () => {
-          try {
-            await api.delete(`/funcionario/${id}/`);
-            setFuncionarios(prev => prev.filter(f => f.id !== id));
-          } catch (error) {
-            Alert.alert('Erro', 'Não foi possível excluir o funcionário. ' + error);
-          }
-        },
-        style: 'destructive'
-      }
-    ]);
-  };
+  const handleDelete = async (id: number) => {
+  try {
+    console.log('Enviando DELETE para:', `/funcionario/${id}/`);
+    await api.delete(`/funcionario/${id}/`);
+    setFuncionarios(prev => prev.filter(f => f.id !== id));
+    console.log('Funcionário removido com sucesso.');
+  } catch (error: any) {
+    console.log('Erro ao excluir funcionário:', error.response?.data || error.message);
+  }
+};
 
   const renderItem = ({ item }: { item: Funcionario }) => (
     <View style={styles.card}>

@@ -18,7 +18,7 @@ export type Cliente = {
 };
 
 const ClienteScreen = ({ navigation }: any) => {
-  const [cliente, setCliente] = useState<Cliente[]>([]);
+  const [clientes, setClientes] = useState<Cliente[]>([]);
   const [loading, setLoading] = useState(true);
 
   // Função para buscar os clientes da API
@@ -26,7 +26,7 @@ const ClienteScreen = ({ navigation }: any) => {
     try {
       setLoading(true);
       const { data } = await api.get('/cliente/');
-      setCliente(data as Cliente[]);
+      setClientes(data as Cliente[]);
     } catch (error) {
       Alert.alert('Erro', 'Não foi possível carregar os clientes. ' + error);
     } finally {
@@ -38,22 +38,21 @@ const ClienteScreen = ({ navigation }: any) => {
   useFocusEffect(useCallback(() => { fetchCliente(); }, []));
 
   // Função para lidar com a exclusão de um cliente
-  const handleDelete = (id: number) => {
-  Alert.alert('Confirmar Exclusão', 'Deseja realmente excluir este cliente?', [
-    { text: 'Cancelar' },
-    {
-      text: 'Excluir',
-      onPress: async () => {
-        try {
-          await api.delete(`/cliente/${id}/`); 
-          setCliente(prev => prev.filter(cli => cli.id !== id));
-        } catch (error) {
-          Alert.alert('Erro', 'Não foi possível excluir o cliente. ' + error);
-        }
-      },
-      style: 'destructive'
-    }
-  ]);
+  const handleDelete = async (id: number) => {
+  try {
+    console.log('Enviando DELETE para:', `/cliente/${id}/`);
+    const response = await api.delete(`/cliente/${id}/`);
+    console.log('Resposta da API ao deletar:', response.status);
+
+    // Atualiza a lista localmente
+    setClientes(prev => {
+      const novo = prev.filter(cli => cli.id !== id);
+      console.log('Clientes após delete:', novo);
+      return novo;
+    });
+  } catch (error: any) {
+    console.log('Erro ao deletar:', error.response?.data || error.message);
+  }
 };
 
   // Renderização de cada item da lista
@@ -86,7 +85,7 @@ const ClienteScreen = ({ navigation }: any) => {
         <ActivityIndicator size="large" color="#3498db" style={{ flex: 1 }} />
       ) : (
         <FlatList
-          data={cliente}
+          data={clientes}
           keyExtractor={(item) => item.id.toString()}
           renderItem={renderItem}
           contentContainerStyle={{ paddingBottom: 80 }}

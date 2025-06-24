@@ -37,23 +37,16 @@ const CarrinhoLocacaoScreen = ({ navigation }: any) => {
 
   React.useEffect(() => { fetchItens(); }, []);
 
-  const handleDelete = (id: number) => {
-    Alert.alert('Remover item', 'Deseja remover este item do carrinho?', [
-      { text: 'Cancelar' },
-      {
-        text: 'Remover',
-        onPress: async () => {
-          try {
-            await api.delete(`/carrinholocacao/${id}/`);
-            setItens(prev => prev.filter(item => item.id !== id));
-          } catch (error) {
-            Alert.alert('Erro', 'Não foi possível remover o item. ' + error);
-          }
-        },
-        style: 'destructive'
-      }
-    ]);
-  };
+  const handleDelete = async (id: number) => {
+  try {
+    console.log('Enviando DELETE para:', `/carrinholocacao/${id}/`);
+    await api.delete(`/carrinholocacao/${id}/`);
+    setItens(prev => prev.filter(item => item.id !== id));
+    console.log('Item removido do carrinho com sucesso.');
+  } catch (error: any) {
+    console.log('Erro ao remover item do carrinho:', error.response?.data || error.message);
+  }
+};
 
   const renderItem = ({ item }: { item: CarrinhoLocacao }) => (
     <View style={styles.card}>

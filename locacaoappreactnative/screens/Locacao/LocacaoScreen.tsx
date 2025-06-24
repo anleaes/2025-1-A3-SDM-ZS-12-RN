@@ -37,23 +37,16 @@ const LocacaoScreen = ({ navigation }: any) => {
 
   useFocusEffect(useCallback(() => { fetchLocacoes(); }, []));
 
-  const handleDelete = (id: number) => {
-    Alert.alert('Confirmar Exclusão', 'Deseja realmente excluir esta locação?', [
-      { text: 'Cancelar' },
-      {
-        text: 'Excluir',
-        onPress: async () => {
-          try {
-            await api.delete(`/locacao/${id}/`);
-            setLocacoes(prev => prev.filter(l => l.id !== id));
-          } catch (error) {
-            Alert.alert('Erro', 'Não foi possível excluir a locação. ' + error);
-          }
-        },
-        style: 'destructive'
-      }
-    ]);
-  };
+  const handleDelete = async (id: number) => {
+  try {
+    console.log('Enviando DELETE para:', `/locacao/${id}/`);
+    await api.delete(`/locacao/${id}/`);
+    setLocacoes(prev => prev.filter(l => l.id !== id));
+    console.log('Locação removida com sucesso.');
+  } catch (error: any) {
+    console.log('Erro ao excluir locação:', error.response?.data || error.message);
+  }
+};
 
   const renderItem = ({ item }: { item: Locacao }) => (
     <View style={styles.card}>

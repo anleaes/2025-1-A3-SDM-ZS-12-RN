@@ -32,23 +32,16 @@ const PagamentoScreen = ({ navigation }: any) => {
 
   useFocusEffect(useCallback(() => { fetchPagamentos(); }, []));
 
-  const handleDelete = (id: number) => {
-    Alert.alert('Confirmar Exclusão', 'Deseja realmente excluir este pagamento?', [
-      { text: 'Cancelar' },
-      {
-        text: 'Excluir',
-        onPress: async () => {
-          try {
-            await api.delete(`/pagamento/${id}/`);
-            setPagamentos(prev => prev.filter(p => p.id !== id));
-          } catch (error) {
-            Alert.alert('Erro', 'Não foi possível excluir o pagamento. ' + error);
-          }
-        },
-        style: 'destructive'
-      }
-    ]);
-  };
+  const handleDelete = async (id: number) => {
+  try {
+    console.log('Enviando DELETE para:', `/pagamento/${id}/`);
+    await api.delete(`/pagamento/${id}/`);
+    setPagamentos(prev => prev.filter(p => p.id !== id));
+    console.log('Pagamento removido com sucesso.');
+  } catch (error: any) {
+    console.log('Erro ao excluir pagamento:', error.response?.data || error.message);
+  }
+};
 
   const renderItem = ({ item }: { item: Pagamento }) => (
     <View style={styles.card}>

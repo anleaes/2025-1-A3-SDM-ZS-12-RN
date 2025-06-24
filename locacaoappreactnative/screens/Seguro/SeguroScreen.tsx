@@ -34,23 +34,16 @@ const SeguroScreen = ({ navigation }: any) => {
   useFocusEffect(useCallback(() => { fetchSeguros(); }, []));
 
   // Função para lidar com a exclusão de um seguro
-  const handleDelete = (id: number) => {
-    Alert.alert('Confirmar Exclusão', 'Deseja realmente excluir este seguro?', [
-      { text: 'Cancelar' },
-      {
-        text: 'Excluir',
-        onPress: async () => {
-          try {
-            await api.delete(`/seguro/${id}/`);
-            setSeguros(prev => prev.filter(seg => seg.id !== id));
-          } catch (error) {
-            Alert.alert('Erro', 'Não foi possível excluir o seguro. ' + error);
-          }
-        },
-        style: 'destructive'
-      }
-    ]);
-  };
+  const handleDelete = async (id: number) => {
+  try {
+    console.log('Enviando DELETE para:', `/seguro/${id}/`);
+    await api.delete(`/seguro/${id}/`);
+    setSeguros(prev => prev.filter(seg => seg.id !== id));
+    console.log('Seguro removido com sucesso.');
+  } catch (error: any) {
+    console.log('Erro ao excluir seguro:', error.response?.data || error.message);
+  }
+};
 
   // Renderização de cada item da lista
   const renderItem = ({ item }: { item: Seguro }) => (

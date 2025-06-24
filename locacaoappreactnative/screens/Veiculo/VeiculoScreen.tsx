@@ -41,23 +41,16 @@ const VeiculoScreen = ({ navigation }: any) => {
 
   useFocusEffect(useCallback(() => { fetchVeiculos(); }, []));
 
-  const handleDelete = (id: number) => {
-    Alert.alert('Confirmar Exclusão', 'Deseja realmente excluir este veículo?', [
-      { text: 'Cancelar' },
-      {
-        text: 'Excluir',
-        onPress: async () => {
-          try {
-            await api.delete(`/veiculo/${id}/`);
-            setVeiculos(prev => prev.filter(v => v.id !== id));
-          } catch (error) {
-            Alert.alert('Erro', 'Não foi possível excluir o veículo. ' + error);
-          }
-        },
-        style: 'destructive'
-      }
-    ]);
-  };
+  const handleDelete = async (id: number) => {
+  try {
+    console.log('Enviando DELETE para:', `/veiculo/${id}/`);
+    await api.delete(`/veiculo/${id}/`);
+    setVeiculos(prev => prev.filter(v => v.id !== id));
+    console.log('Veículo removido com sucesso.');
+  } catch (error: any) {
+    console.log('Erro ao excluir veículo:', error.response?.data || error.message);
+  }
+};
 
   const renderItem = ({ item }: { item: Veiculo }) => (
     <View style={styles.card}>
